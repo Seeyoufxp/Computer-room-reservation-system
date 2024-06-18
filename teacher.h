@@ -8,7 +8,7 @@ class Teacher:public Identify
 public:
     Teacher();
     Teacher(int empId,std::string name,std::string pwd);
-    virtual void operMenu() = 0;
+    virtual void operMenu();
     void showAllOrder();
     void validOrder();
 

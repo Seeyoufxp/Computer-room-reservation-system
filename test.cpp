@@ -3,6 +3,48 @@
 #include "globalFile.h"
 #include <fstream>
 #include <string>
+#include "student.h"
+#include "teacher.h"
+#include "manager.h"
+
+void managerMenu(Identify *&manager)
+{
+    while (true)
+    {
+        manager->operMenu();
+        Manager *man = (Manager *)manager;
+        int select = 0;
+        std::cin >> select;
+        if (select == 1)
+        {
+            std::cout << "Add Account" << std::endl;
+            man->addPerson();
+        }
+        else if (select == 2)
+        {
+            std::cout << "SHow Account" << std::endl;
+            man->showPerson();
+        }
+        else if (select == 3)
+        {
+            std::cout << "Show Computer" << std::endl;
+            man->showComputer();
+        }
+        else if (select == 4)
+        {
+            std::cout << "Clear reservation" << std::endl;
+            man->clearFile();
+        }
+        else if (select == 0)
+        {
+            delete manager;
+            std::cout << "Log off!" << std::endl;
+            system("pause");
+            system("cls");
+            return;
+        }
+    }
+}
 
 void LoginIn(std::string fileName, int type)
 {
@@ -37,14 +79,59 @@ void LoginIn(std::string fileName, int type)
 
     if (type == 1)
     {
+        int fId;
+        std::string fName;
+        std::string fPwd;
+        while (ifs >> fId && ifs >> fName && ifs >> fPwd)
+        {
+            if (id == fId && name == fName && pwd == fPwd)
+            {
+                std::cout << "Log in!" << std::endl;
+                system("pause");
+                system("cls");
+                person = new Student(id, name, pwd);
+
+                return;
+            }
+        }
     }
     else if (type == 2)
     {
+        int fId;
+        std::string fName;
+        std::string fPwd;
+        while (ifs >> fId && ifs >> fName && ifs >> fPwd)
+        {
+            if (id == fId && name == fName && pwd == fPwd)
+            {
+                std::cout << "Log in!" << std::endl;
+                system("pause");
+                system("cls");
+                person = new Teacher(id, name, pwd);
+
+                return;
+            }
+        }
     }
     else if (type == 3)
     {
+        std::string fName;
+        std::string fPwd;
+        while (ifs >> fName && ifs >> fPwd)
+        {
+            if (name == fName && pwd == fPwd)
+            {
+                std::cout << "Log in!" << std::endl;
+                system("pause");
+                system("cls");
+                person = new Manager(name, pwd);
+                managerMenu(person);
+
+                return;
+            }
+        }
     }
-    std::cout << "Login failed" << std::endl;
+    std::cout << "Login failed!" << std::endl;
     system("pause");
     system("cls");
     return;
